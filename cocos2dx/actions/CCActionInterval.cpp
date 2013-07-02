@@ -2537,4 +2537,12 @@ void CCTargetedAction::update(float time)
     m_pAction->update(time);
 }
 
+CCTargetedAction* CCTargetedAction::reverse(void)
+{
+    CCTargetedAction* p = new CCTargetedAction();
+    p->initWithTarget(m_pForcedTarget, m_pAction->reverse());
+    p->autorelease();
+    return p;
+}
+
 NS_CC_END
