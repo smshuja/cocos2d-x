@@ -1495,7 +1495,7 @@ LabelTTFOldNew::LabelTTFOldNew()
     auto s = Director::getInstance()->getWinSize();
     float delta = s.height/4;
 
-    auto label1 = LabelTTF::create("Cocos2d-x Label Test", "arial", 24);
+    auto label1 = Label::create("Cocos2d-x Label Test", "arial", 24);
     addChild(label1, 0, kTagBitmapAtlas1);
     label1->setPosition(Point(s.width/2, delta * 2));
     label1->setColor(Color3B::RED);
@@ -1511,7 +1511,7 @@ void LabelTTFOldNew::onDraw(const kmMat4 &transform, bool transformUpdated)
     kmGLPushMatrix();
     kmGLLoadMatrix(&transform);
 
-    auto label1 = (LabelTTF*)getChildByTag(kTagBitmapAtlas1);
+    auto label1 = (Label*)getChildByTag(kTagBitmapAtlas1);
     auto labelSize = label1->getContentSize();
     auto origin    = Director::getInstance()->getWinSize();
     
@@ -1575,13 +1575,13 @@ LabelFontNameTest::LabelFontNameTest()
     addChild(label1);
 
     FontDefinition fontDef;
-    fontDef._fontName = "Marker Felt";
+    fontDef._fontName = "fonts/Marker Felt.ttf";
     fontDef._fontSize = 32;
     auto label2 = Label::createWithFontDefinition("Create with FontDefinition",fontDef);
     label2->setPosition( Point(size.width/2, size.height * 0.6) );
     addChild(label2);
 
-    auto label3 = Label::create("Marker Felt","Marker Felt",32);
+    auto label3 = Label::create("fonts/Marker Felt.ttf","fonts/Marker Felt.ttf",32);
     label3->setPosition( Point(size.width/2, size.height * 0.5) );
     addChild(label3);
 }
