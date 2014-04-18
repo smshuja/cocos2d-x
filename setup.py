@@ -449,6 +449,10 @@ class SetEnvVar(object):
 
             self._set_environment_variable(COCOS_CONSOLE_ROOT, cocos_consle_root)
         else:
+            if old_dir == cocos_consle_root:
+                # is same with before, nothing to do
+                return
+
             # update the environment variable
             if self._isWindows(): 
                 self.remove_dir_from_win_path(old_dir)
@@ -517,6 +521,27 @@ class SetEnvVar(object):
             ret = self._force_update_unix_env(var_name, value)
         return ret
 
+    def _get_ant_path(self):
+        print("  ->Find command ant in system...")
+        ret = None
+        if not self._isWindows():
+            import commands
+            state, result = commands.getstatusoutput("which ant")
+            if state == 0:
+                ret = os.path.dirname(result)
+
+        if ret is not None:
+            print("    ->Path \"%s\" was found\n" % ret)
+        else:
+            print("    ->Command ant not found\n")
+        return ret
+
+    def _find_value_from_sys(self, var_name):
+        if var_name == ANT_ROOT:
+            return self._get_ant_path()
+        else:
+            return None
+
     def set_variable(self, var_name, value):
         print("->Check environment variable %s" % var_name)
         find_value = self._find_environment_variable(var_name)
@@ -534,6 +559,10 @@ class SetEnvVar(object):
                 # do nothing
                 need_action = action_none
         else:
+            if not value:
+                # find the command path in system
+                value = self._find_value_from_sys(var_name)
+
             if not value:
                 value = self._get_input_value(var_name)
 
@@ -597,3 +626,12 @@ if __name__ == '__main__':
     # set environment variables
     env = SetEnvVar()
     env.set_environment_variables(opts.ndk_root, opts.android_sdk_root, opts.ant_root)
+
+    if env._isWindows():
+        import ctypes
+        HWND_BROADCAST = 0xFFFF
+        WM_SETTINGCHANGE = 0x1A
+        SMTO_ABORTIFHUNG = 0x0002
+        result = ctypes.c_long()
+        SendMessageTimeoutW = ctypes.windll.user32.SendMessageTimeoutW
+        SendMessageTimeoutW(HWND_BROADCAST, WM_SETTINGCHANGE, 0, u'Environment', SMTO_ABORTIFHUNG, 5000, ctypes.byref(result))
