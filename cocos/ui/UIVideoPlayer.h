@@ -75,6 +75,8 @@ namespace experimental{
 
             virtual void onPlayEvent(int event);
             virtual void draw(Renderer *renderer, const Mat4& transform, uint32_t flags) override;
+            virtual void showControls();
+            virtual void hideControls();
 
         protected:
             virtual cocos2d::ui::Widget* createCloneInstance() override;

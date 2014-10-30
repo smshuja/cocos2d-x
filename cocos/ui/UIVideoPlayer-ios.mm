@@ -166,6 +166,14 @@ using namespace cocos2d::experimental::ui;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playStateChange) name:MPMoviePlayerPlaybackStateDidChangeNotification object:self.moviePlayer];
 }
 
+-(void) showControls {
+    self.moviePlayer.controlStyle = MPMovieControlStyleEmbedded;
+}
+
+-(void) hideControls {
+    self.moviePlayer.controlStyle = MPMovieControlStyleNone;
+}
+
 -(void) videoFinished:(NSNotification *)notification
 {
     if(_videoPlayer != nullptr)
@@ -454,6 +462,20 @@ void VideoPlayer::copySpecialProperties(Widget *widget)
         _videoPlayerIndex = videoPlayer->_videoPlayerIndex;
         _eventCallback = videoPlayer->_eventCallback;
         _videoView = videoPlayer->_videoView;
+    }
+}
+
+void VideoPlayer::showControls() {
+    if (! _videoURL.empty())
+    {
+        [((UIVideoViewWrapperIos*)_videoView) showControls];
+    }
+}
+
+void VideoPlayer::hideControls() {
+    if (! _videoURL.empty())
+    {
+        [((UIVideoViewWrapperIos*)_videoView) hideControls];
     }
 }
 
