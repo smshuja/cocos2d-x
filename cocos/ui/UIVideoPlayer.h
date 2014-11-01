@@ -77,6 +77,7 @@ namespace experimental{
             virtual void draw(Renderer *renderer, const Mat4& transform, uint32_t flags) override;
             virtual void showControls();
             virtual void hideControls();
+            virtual int getLastPlayEvent();
 
         protected:
             virtual cocos2d::ui::Widget* createCloneInstance() override;
@@ -99,6 +100,7 @@ namespace experimental{
             bool _fullScreenDirty;
             bool _fullScreenEnabled;
             bool _keepAspectRatioEnabled;
+            int _lastPlayEvent;
 
             std::string _videoURL;
             Source _videoSource;

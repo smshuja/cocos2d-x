@@ -280,6 +280,7 @@ VideoPlayer::VideoPlayer()
 , _fullScreenEnabled(false)
 , _fullScreenDirty(false)
 , _keepAspectRatioEnabled(false)
+, _lastPlayEvent(-1)
 , _isPlaying(false)
 {
     _videoView = [[UIVideoViewWrapperIos alloc] init:this];
@@ -436,7 +437,8 @@ void VideoPlayer::onPlayEvent(int event)
     } else {
         _isPlaying = false;
     }
-    
+    _lastPlayEvent = event;
+    CCLOG("onPlayEvent: %d", event);
     if (_eventCallback)
     {
         _eventCallback(this, (VideoPlayer::EventType)event);
@@ -477,6 +479,10 @@ void VideoPlayer::hideControls() {
     {
         [((UIVideoViewWrapperIos*)_videoView) hideControls];
     }
+}
+
+int VideoPlayer::getLastPlayEvent() {
+    return _lastPlayEvent;
 }
 
 #endif
