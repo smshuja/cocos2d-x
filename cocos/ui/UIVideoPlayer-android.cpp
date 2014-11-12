@@ -152,6 +152,12 @@ void setVideoVisible(int index,bool visible)
         t.env->DeleteLocalRef(t.classID);
     }
 }
+void showControlsJni(int index)
+{
+}
+void hideControlsJni(int index)
+{
+}
 
 void setVideoKeepRatioEnabled(int index,bool enabled)
 {
@@ -174,6 +180,7 @@ VideoPlayer::VideoPlayer()
 , _eventCallback(nullptr)
 , _fullScreenEnabled(false)
 , _fullScreenDirty(false)
+, _lastPlayEvent(-1)
 , _keepAspectRatioEnabled(false)
 {
     _videoPlayerIndex = createVideoWidgetJNI();
@@ -344,7 +351,7 @@ void VideoPlayer::setVisible(bool visible)
     if (! _videoURL.empty())
     {
         setVideoVisible(_videoPlayerIndex,visible);
-    } 
+    }
 }
 
 void VideoPlayer::addEventListener(const VideoPlayer::ccVideoPlayerCallback& callback)
@@ -357,7 +364,7 @@ void VideoPlayer::onPlayEvent(int event)
     if (event == QUIT_FULLSCREEN)
     {
         _fullScreenEnabled = false;
-    } 
+    }
     else
     {
         VideoPlayer::EventType videoEvent = (VideoPlayer::EventType)event;
@@ -372,6 +379,7 @@ void VideoPlayer::onPlayEvent(int event)
             _eventCallback(this,videoEvent);
         }
     }
+    _lastPlayEvent = event;
 }
 
 cocos2d::ui::Widget* VideoPlayer::createCloneInstance()
@@ -394,6 +402,23 @@ void VideoPlayer::copySpecialProperties(Widget *widget)
         _eventCallback = videoPlayer->_eventCallback;
         _videoView = videoPlayer->_videoView;
     }
+}
+void VideoPlayer::showControls() {
+    if (! _videoURL.empty())
+    {
+        showControlsJni(_videoPlayerIndex);
+    }
+}
+
+void VideoPlayer::hideControls() {
+    if (! _videoURL.empty())
+    {
+        hideControlsJni(_videoPlayerIndex);
+    }
+}
+
+int VideoPlayer::getLastPlayEvent() {
+    return _lastPlayEvent;
 }
 
 void executeVideoCallback(int index,int event)
