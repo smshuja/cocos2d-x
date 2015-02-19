@@ -90,26 +90,11 @@ enum class MATRIX_STACK_TYPE
 
 class CC_DLL Director : public Ref
 {
-private:
-    std::stack<Mat4> _modelViewMatrixStack;
-    std::stack<Mat4> _projectionMatrixStack;
-    std::stack<Mat4> _textureMatrixStack;
-protected:
-    void initMatrixStack();
-public:
-    void pushMatrix(MATRIX_STACK_TYPE type);
-    void popMatrix(MATRIX_STACK_TYPE type);
-    void loadIdentityMatrix(MATRIX_STACK_TYPE type);
-    void loadMatrix(MATRIX_STACK_TYPE type, const Mat4& mat);
-    void multiplyMatrix(MATRIX_STACK_TYPE type, const Mat4& mat);
-    Mat4 getMatrix(MATRIX_STACK_TYPE type);
-    void resetMatrixStack();
 public:
     static const char *EVENT_PROJECTION_CHANGED;
     static const char* EVENT_AFTER_UPDATE;
     static const char* EVENT_AFTER_VISIT;
     static const char* EVENT_AFTER_DRAW;
-
 
     /** @typedef ccDirectorProjection
      Possible OpenGL projections used by director
@@ -278,7 +263,7 @@ public:
      If level is 1, it will pop all scenes until it reaches to root scene.
      If level is <= than the current stack level, it won't do anything.
      */
- 	void popToSceneStackLevel(int level);
+    void popToSceneStackLevel(int level);
 
     /** Replaces the running scene with a new one. The running scene is terminated.
      * ONLY call it if there is a running scene.
@@ -302,6 +287,10 @@ public:
      The "delta time" will be 0 (as if the game wasn't paused)
      */
     void resume();
+    
+    /** Restart the director
+     */
+    void restart();
 
     /** Stops the animation. Nothing will be drawn. The main loop won't be triggered anymore.
      If you don't want to pause your animation call [pause] instead.
@@ -327,7 +316,7 @@ public:
      */
     void purgeCachedData();
 
-	/** sets the default values based on the Configuration info */
+    /** sets the default values based on the Configuration info */
     void setDefaultValues();
 
     // OpenGL Helper
@@ -337,6 +326,9 @@ public:
 
     /** enables/disables OpenGL alpha blending */
     void setAlphaBlending(bool on);
+    
+    /** set clear values for the color buffers, value range of each element is [0.0, 1.0] */
+    void setClearColor(const Color4F& clearColor);
 
     /** enables/disables OpenGL depth test */
     void setDepthTest(bool on);
@@ -392,16 +384,29 @@ public:
     Console* getConsole() const { return _console; }
 
     /* Gets delta time since last tick to main loop */
-	float getDeltaTime() const;
+    float getDeltaTime() const;
     
     /**
      *  get Frame Rate
      */
     float getFrameRate() const { return _frameRate; }
 
+    void pushMatrix(MATRIX_STACK_TYPE type);
+    void popMatrix(MATRIX_STACK_TYPE type);
+    void loadIdentityMatrix(MATRIX_STACK_TYPE type);
+    void loadMatrix(MATRIX_STACK_TYPE type, const Mat4& mat);
+    void multiplyMatrix(MATRIX_STACK_TYPE type, const Mat4& mat);
+    const Mat4& getMatrix(MATRIX_STACK_TYPE type);
+    void resetMatrixStack();
+
 protected:
+    void reset();
+    
     void purgeDirector();
     bool _purgeDirectorInNextLoop; // this flag will be set to true in end()
+    
+    void restartDirector();
+    bool _restartDirectorInNextLoop; // this flag will be set to true in restart()
     
     void setNextScene();
     
@@ -416,6 +421,12 @@ protected:
     //textureCache creation or release
     void initTextureCache();
     void destroyTextureCache();
+
+    void initMatrixStack();
+
+    std::stack<Mat4> _modelViewMatrixStack;
+    std::stack<Mat4> _projectionMatrixStack;
+    std::stack<Mat4> _textureMatrixStack;
 
     /** Scheduler associated with this director
      @since v2.0
@@ -434,7 +445,7 @@ protected:
     EventCustom *_eventProjectionChanged, *_eventAfterDraw, *_eventAfterVisit, *_eventAfterUpdate;
         
     /* delta time since last tick to main loop */
-	float _deltaTime;
+    float _deltaTime;
     
     /* The _openGLView, where everything is rendered, GLView is a abstract class,cocos2d-x provide GLViewImpl
      which inherit from it as default renderer context,you can have your own by inherit from it*/
@@ -462,7 +473,6 @@ protected:
 
     /* How many frames were called since the director started */
     unsigned int _totalFrames;
-    unsigned int _frames;
     float _secondsPerFrame;
     
     /* The running scene */

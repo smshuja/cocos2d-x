@@ -520,6 +520,61 @@ public:
     virtual std::string subtitle() const override;
 };
 
+class LabelMultilineWithOutline : public AtlasDemoNew
+{
+public:
+    CREATE_FUNC(LabelMultilineWithOutline);
+
+    LabelMultilineWithOutline();
+
+    virtual std::string title() const override;
+    virtual std::string subtitle() const override;
+};
+
 // we don't support linebreak mode
+
+class LabelIssue9255Test : public AtlasDemoNew
+{
+public:
+    CREATE_FUNC(LabelIssue9255Test);
+
+    LabelIssue9255Test();
+
+    virtual std::string title() const override;
+    virtual std::string subtitle() const override;
+};
+
+class LabelSmallDimensionsTest : public AtlasDemoNew
+{
+public:
+    CREATE_FUNC(LabelSmallDimensionsTest);
+
+    LabelSmallDimensionsTest();
+
+    virtual std::string title() const override;
+    virtual std::string subtitle() const override;
+};
+
+class LabelIssue10089Test : public AtlasDemoNew
+{
+public:
+    CREATE_FUNC(LabelIssue10089Test);
+
+    LabelIssue10089Test();
+
+    virtual std::string title() const override;
+    virtual std::string subtitle() const override;
+};
+
+class LabelSystemFontColor : public AtlasDemoNew
+{
+public:
+    CREATE_FUNC(LabelSystemFontColor);
+
+    LabelSystemFontColor();
+
+    virtual std::string title() const override;
+    virtual std::string subtitle() const override;
+};
 
 #endif

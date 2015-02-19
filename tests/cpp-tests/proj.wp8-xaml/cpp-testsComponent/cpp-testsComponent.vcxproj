@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{86b2c23c-3a6c-4c4e-ab0e-16a8cc1523e9}</ProjectGuid>
-    <RootNamespace>PhoneDirect3DXamlAppComponent</RootNamespace>
+    <RootNamespace>cocos2d</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
     <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
     <WinMDAssembly>true</WinMDAssembly>
@@ -193,6 +193,7 @@
     <ClCompile Include="..\..\..\..\cocos\platform\wp8-xaml\cpp\Direct3DInterop.cpp" />
     <ClCompile Include="..\..\..\..\cocos\platform\wp8-xaml\cpp\DirectXBase.cpp" />
     <ClCompile Include="..\..\..\..\cocos\platform\wp8-xaml\cpp\EditBoxEvent.cpp" />
+    <ClCompile Include="..\..\Classes\AllocatorTest\AllocatorTest.cpp" />
     <ClCompile Include="..\..\Classes\BaseTest.cpp" />
     <ClCompile Include="..\..\Classes\BillBoardTest\BillBoardTest.cpp" />
     <ClCompile Include="..\..\Classes\BugsTest\Bug-Child.cpp" />
@@ -235,6 +236,7 @@
     <ClCompile Include="..\..\Classes\PerformanceTest\PerformanceContainerTest.cpp" />
     <ClCompile Include="..\..\Classes\PerformanceTest\PerformanceEventDispatcherTest.cpp" />
     <ClCompile Include="..\..\Classes\PerformanceTest\PerformanceLabelTest.cpp" />
+    <ClCompile Include="..\..\Classes\PerformanceTest\PerformanceMathTest.cpp" />
     <ClCompile Include="..\..\Classes\PerformanceTest\PerformanceRendererTest.cpp" />
     <ClCompile Include="..\..\Classes\PerformanceTest\PerformanceScenarioTest.cpp" />
     <ClCompile Include="..\..\Classes\PhysicsTest\PhysicsTest.cpp" />
@@ -252,6 +254,9 @@
     <ClCompile Include="..\..\Classes\UITest\CocoStudioGUITest\CustomGUIScene.cpp" />
     <ClCompile Include="..\..\Classes\UITest\CocoStudioGUITest\CustomTest\CustomImageTest\CustomImageTest.cpp" />
     <ClCompile Include="..\..\Classes\UITest\CocoStudioGUITest\CustomTest\CustomParticleWidgetTest\CustomParticleWidgetTest.cpp" />
+    <ClCompile Include="..\..\Classes\UITest\CocoStudioGUITest\CustomTest\CustomWidgetCallbackBindTest\CustomRootNode.cpp" />
+    <ClCompile Include="..\..\Classes\UITest\CocoStudioGUITest\CustomTest\CustomWidgetCallbackBindTest\CustomRootNodeReader.cpp" />
+    <ClCompile Include="..\..\Classes\UITest\CocoStudioGUITest\CustomTest\CustomWidgetCallbackBindTest\CustomWidgetCallbackBindTest.cpp" />
     <ClCompile Include="..\..\Classes\UITest\CocoStudioGUITest\CustomWidget\CustomImageView.cpp" />
     <ClCompile Include="..\..\Classes\UITest\CocoStudioGUITest\CustomWidget\CustomImageViewReader.cpp" />
     <ClCompile Include="..\..\Classes\UITest\CocoStudioGUITest\CustomWidget\CustomParticleWidget.cpp" />
@@ -382,6 +387,7 @@
     <ClInclude Include="..\..\..\..\cocos\platform\wp8-xaml\cpp\DirectXBase.h" />
     <ClInclude Include="..\..\..\..\cocos\platform\wp8-xaml\cpp\DirectXHelper.h" />
     <ClInclude Include="..\..\..\..\cocos\platform\wp8-xaml\cpp\EditBoxEvent.h" />
+    <ClInclude Include="..\..\Classes\AllocatorTest\AllocatorTest.h" />
     <ClInclude Include="..\..\Classes\BaseTest.h" />
     <ClInclude Include="..\..\Classes\BillBoardTest\BillBoardTest.h" />
     <ClInclude Include="..\..\Classes\Box2DTestBed\Tests\ConvexHull.h" />
@@ -432,6 +438,7 @@
     <ClInclude Include="..\..\Classes\PerformanceTest\PerformanceContainerTest.h" />
     <ClInclude Include="..\..\Classes\PerformanceTest\PerformanceEventDispatcherTest.h" />
     <ClInclude Include="..\..\Classes\PerformanceTest\PerformanceLabelTest.h" />
+    <ClInclude Include="..\..\Classes\PerformanceTest\PerformanceMathTest.h" />
     <ClInclude Include="..\..\Classes\PerformanceTest\PerformanceRendererTest.h" />
     <ClInclude Include="..\..\Classes\PerformanceTest\PerformanceScenarioTest.h" />
     <ClInclude Include="..\..\Classes\PhysicsTest\PhysicsTest.h" />
@@ -449,6 +456,9 @@
     <ClInclude Include="..\..\Classes\UITest\CocoStudioGUITest\CustomGUIScene.h" />
     <ClInclude Include="..\..\Classes\UITest\CocoStudioGUITest\CustomTest\CustomImageTest\CustomImageTest.h" />
     <ClInclude Include="..\..\Classes\UITest\CocoStudioGUITest\CustomTest\CustomParticleWidgetTest\CustomParticleWidgetTest.h" />
+    <ClInclude Include="..\..\Classes\UITest\CocoStudioGUITest\CustomTest\CustomWidgetCallbackBindTest\CustomRootNode.h" />
+    <ClInclude Include="..\..\Classes\UITest\CocoStudioGUITest\CustomTest\CustomWidgetCallbackBindTest\CustomRootNodeReader.h" />
+    <ClInclude Include="..\..\Classes\UITest\CocoStudioGUITest\CustomTest\CustomWidgetCallbackBindTest\CustomWidgetCallbackBindTest.h" />
     <ClInclude Include="..\..\Classes\UITest\CocoStudioGUITest\CustomWidget\CustomImageView.h" />
     <ClInclude Include="..\..\Classes\UITest\CocoStudioGUITest\CustomWidget\CustomImageViewReader.h" />
     <ClInclude Include="..\..\Classes\UITest\CocoStudioGUITest\CustomWidget\CustomParticleWidget.h" />

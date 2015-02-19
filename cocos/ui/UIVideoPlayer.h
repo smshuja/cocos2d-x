@@ -83,9 +83,11 @@ namespace experimental{
             virtual cocos2d::ui::Widget* createCloneInstance() override;
             virtual void copySpecialProperties(Widget* model) override;
             
+        CC_CONSTRUCTOR_ACCESS:
             VideoPlayer();
             virtual ~VideoPlayer();
 
+        protected:
 #if CC_VIDEOPLAYER_DEBUG_DRAW
             DrawNode *_debugDrawNode;
 #endif
