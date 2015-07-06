@@ -147,6 +147,8 @@ namespace experimental{
             virtual void showControls();
             virtual void hideControls();
             virtual int getLastPlayEvent();
+            virtual double getDuration();
+            virtual double getCurrentPlaybackTime();
 
         protected:
             virtual cocos2d::ui::Widget* createCloneInstance() override;

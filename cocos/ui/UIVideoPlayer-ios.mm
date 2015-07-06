@@ -485,4 +485,10 @@ int VideoPlayer::getLastPlayEvent() {
     return _lastPlayEvent;
 }
 
+double VideoPlayer::getDuration() {
+    return ((UIVideoViewWrapperIos*)_videoView).moviePlayer.duration;
+}
+double VideoPlayer::getCurrentPlaybackTime() {
+    return ((UIVideoViewWrapperIos*)_videoView).moviePlayer.currentPlaybackTime;
+}
 #endif
