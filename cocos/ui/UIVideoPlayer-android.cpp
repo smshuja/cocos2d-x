@@ -169,6 +169,27 @@ void setVideoKeepRatioEnabled(int index,bool enabled)
         t.env->DeleteLocalRef(t.classID);
     }
 }
+int getDurationJni(int index)
+{
+    JniMethodInfo t;
+    int ret = -1;
+    if (JniHelper::getStaticMethodInfo(t, CLASS_NAME, "getDuration", "(I)I")) {
+        ret = t.env->CallStaticIntMethod(t.classID, t.methodID, index);
+        t.env->DeleteLocalRef(t.classID);
+    }
+    return ret;
+
+}
+int getCurrentPositionJni(int index)
+{
+    JniMethodInfo t;
+    int ret = -1;
+    if (JniHelper::getStaticMethodInfo(t, CLASS_NAME, "getCurrentPosition", "(I)I")) {
+        ret = t.env->CallStaticIntMethod(t.classID, t.methodID, index);
+        t.env->DeleteLocalRef(t.classID);
+    }
+    return ret;
+}
 //-----------------------------------------------------------------------------------------------------------
 
 using namespace cocos2d::experimental::ui;
@@ -429,5 +450,10 @@ void executeVideoCallback(int index,int event)
         s_allVideoPlayers[index]->onPlayEvent(event);
     }
 }
-
+double VideoPlayer::getDuration() {
+    return getDurationJni(_videoPlayerIndex) / 1000.0;
+}
+double VideoPlayer::getCurrentPlaybackTime() {
+    return getCurrentPositionJni(_videoPlayerIndex) / 1000.0;
+}
 #endif
