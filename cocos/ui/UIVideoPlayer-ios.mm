@@ -258,6 +258,14 @@ using namespace cocos2d::experimental::ui;
     }
 }
 
+-(void) showControls {
+    self.moviePlayer.controlStyle = MPMovieControlStyleEmbedded;
+}
+
+-(void) hideControls {
+    self.moviePlayer.controlStyle = MPMovieControlStyleNone;
+}
+
 @end
 //------------------------------------------------------------------------------------------------------------
 
@@ -268,6 +276,7 @@ VideoPlayer::VideoPlayer()
 , _fullScreenDirty(false)
 , _keepAspectRatioEnabled(false)
 , _isPlaying(false)
+, _lastPlayEvent(-1)
 {
     _videoView = [[UIVideoViewWrapperIos alloc] init:this];
 
@@ -423,7 +432,8 @@ void VideoPlayer::onPlayEvent(int event)
     } else {
         _isPlaying = false;
     }
-    
+    _lastPlayEvent = event;
+
     if (_eventCallback)
     {
         _eventCallback(this, (VideoPlayer::EventType)event);
@@ -450,6 +460,32 @@ void VideoPlayer::copySpecialProperties(Widget *widget)
         _eventCallback = videoPlayer->_eventCallback;
         _videoView = videoPlayer->_videoView;
     }
+}
+
+void VideoPlayer::showControls() {
+    if (! _videoURL.empty())
+    {
+        [((UIVideoViewWrapperIos*)_videoView) showControls];
+    }
+}
+
+void VideoPlayer::hideControls() {
+    if (! _videoURL.empty())
+    {
+        [((UIVideoViewWrapperIos*)_videoView) hideControls];
+    }
+}
+
+int VideoPlayer::getLastPlayEvent() {
+    return _lastPlayEvent;
+}
+
+double VideoPlayer::getDuration() {
+    return ((UIVideoViewWrapperIos*)_videoView).moviePlayer.duration;
+}
+
+double VideoPlayer::getCurrentPlaybackTime() {
+    return ((UIVideoViewWrapperIos*)_videoView).moviePlayer.currentPlaybackTime;
 }
 
 #endif

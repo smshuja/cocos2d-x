@@ -172,6 +172,11 @@ namespace experimental{
             virtual void onPlayEvent(int event);
             virtual void setVisible(bool visible) override;
             virtual void draw(Renderer *renderer, const Mat4& transform, uint32_t flags) override;
+            virtual void showControls();
+            virtual void hideControls();
+            virtual int getLastPlayEvent();
+            virtual double getDuration();
+            virtual double getCurrentPlaybackTime();
 
         protected:
             virtual cocos2d::ui::Widget* createCloneInstance() override;
@@ -204,6 +209,7 @@ namespace experimental{
             ccVideoPlayerCallback _eventCallback;
 
             void* _videoView;
+            int _lastPlayEvent;
         };
     }
 }

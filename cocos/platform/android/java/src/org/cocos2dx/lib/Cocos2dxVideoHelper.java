@@ -432,4 +432,21 @@ public class Cocos2dxVideoHelper {
             videoView.setKeepRatio(enable);
         }
     }
+
+    public static int getDuration(int index) {
+        Cocos2dxVideoHelper helper = mVideoHandler.mReference.get();
+        Cocos2dxVideoView videoView = helper.sVideoViews.get(index);
+        if (videoView != null) {
+            return videoView.getDuration();
+        }
+        return -1;
+    }
+
+    public static int getCurrentPosition(int index) {
+        Cocos2dxVideoView videoView = mVideoHandler.mReference.get().sVideoViews.get(index);
+        if (videoView != null) {
+            return videoView.getCurrentPosition();
+        }
+        return 0;
+    }
 }

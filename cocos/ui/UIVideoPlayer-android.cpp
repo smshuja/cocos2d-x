@@ -165,6 +165,29 @@ void setVideoKeepRatioEnabled(int index,bool enabled)
         t.env->DeleteLocalRef(t.classID);
     }
 }
+
+int getDurationJni(int index)
+{
+    JniMethodInfo t;
+    int ret = -1;
+    if (JniHelper::getStaticMethodInfo(t, CLASS_NAME, "getDuration", "(I)I")) {
+        ret = t.env->CallStaticIntMethod(t.classID, t.methodID, index);
+        t.env->DeleteLocalRef(t.classID);
+    }
+    return ret;
+
+}
+
+int getCurrentPositionJni(int index)
+{
+    JniMethodInfo t;
+    int ret = -1;
+    if (JniHelper::getStaticMethodInfo(t, CLASS_NAME, "getCurrentPosition", "(I)I")) {
+        ret = t.env->CallStaticIntMethod(t.classID, t.methodID, index);
+        t.env->DeleteLocalRef(t.classID);
+    }
+    return ret;
+}
 //-----------------------------------------------------------------------------------------------------------
 
 using namespace cocos2d::experimental::ui;
@@ -177,6 +200,7 @@ VideoPlayer::VideoPlayer()
 , _fullScreenEnabled(false)
 , _fullScreenDirty(false)
 , _keepAspectRatioEnabled(false)
+, _lastPlayEvent(-1)
 {
     _videoPlayerIndex = createVideoWidgetJNI();
     s_allVideoPlayers[_videoPlayerIndex] = this;
@@ -345,6 +369,7 @@ void VideoPlayer::addEventListener(const VideoPlayer::ccVideoPlayerCallback& cal
 
 void VideoPlayer::onPlayEvent(int event)
 {
+     _lastPlayEvent = event;
     if (event == QUIT_FULLSCREEN)
     {
         _fullScreenEnabled = false;
@@ -394,6 +419,32 @@ void executeVideoCallback(int index,int event)
     {
         s_allVideoPlayers[index]->onPlayEvent(event);
     }
+}
+
+void VideoPlayer::showControls() {
+    if (! _videoURL.empty())
+    {
+        //showControlsJni(_videoPlayerIndex);
+    }
+}
+
+void VideoPlayer::hideControls() {
+    if (! _videoURL.empty())
+    {
+        //hideControlsJni(_videoPlayerIndex);
+    }
+}
+
+int VideoPlayer::getLastPlayEvent() {
+    return _lastPlayEvent;
+}
+
+double VideoPlayer::getDuration() {
+    return getDurationJni(_videoPlayerIndex) / 1000.0;
+}
+
+double VideoPlayer::getCurrentPlaybackTime() {
+    return getCurrentPositionJni(_videoPlayerIndex) / 1000.0;
 }
 
 #endif
