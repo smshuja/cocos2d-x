@@ -47,6 +47,14 @@ bool
 },
 
 /**
+ * @method showControls
+ */
+showControls : function (
+)
+{
+},
+
+/**
  * @method stop
  */
 stop : function (
@@ -62,6 +70,16 @@ setFullScreenEnabled : function (
 bool 
 )
 {
+},
+
+/**
+ * @method getDuration
+ * @return {double}
+ */
+getDuration : function (
+)
+{
+    return 0;
 },
 
 /**
@@ -115,6 +133,24 @@ isFullScreenEnabled : function (
 },
 
 /**
+ * @method getLastPlayEvent
+ * @return {int}
+ */
+getLastPlayEvent : function (
+)
+{
+    return 0;
+},
+
+/**
+ * @method hideControls
+ */
+hideControls : function (
+)
+{
+},
+
+/**
  * @method isPlaying
  * @return {bool}
  */
@@ -122,6 +158,16 @@ isPlaying : function (
 )
 {
     return false;
+},
+
+/**
+ * @method getCurrentPlaybackTime
+ * @return {double}
+ */
+getCurrentPlaybackTime : function (
+)
+{
+    return 0;
 },
 
 /**
