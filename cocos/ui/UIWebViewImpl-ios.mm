@@ -133,6 +133,8 @@ static std::string getFixedBaseUrl(const std::string& baseUrl)
     if (!self.uiWebView) {
         self.uiWebView = [[[UIWebView alloc] init] autorelease];
         self.uiWebView.delegate = self;
+        self.uiWebView.mediaPlaybackRequiresUserAction = NO;
+        self.uiWebView.allowsInlineMediaPlayback = YES;
     }
     if (!self.uiWebView.superview) {
         auto view = cocos2d::Director::getInstance()->getOpenGLView();
